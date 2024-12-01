@@ -11,7 +11,7 @@ on:
 
 jobs:
   # TODO: Define a job for building and testing the frontend
-  frontend:
+  frontend-test:
     runs-on: ubuntu-latest
     defaults: 
       run: 
@@ -25,14 +25,23 @@ jobs:
     - name: Run tests frontend
       run: echo "Testing frontend passed"
     #   run: npm test
+
+  frontend-build:
+    runs-on: ubuntu-latest
+    needs: frontend-test
+    defaults: 
+      run: 
+        working-directory: frontend
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Node JS
+      uses: actions/setup-node@v4.1.0
+    - name: Install dependencies
+      run: npm install
     - name: Build React app
       run: npm run build
-      # TODO: Checkout code
-      # TODO: Setup Node.js
-      # TODO: Install dependencies
-      # TODO: Run tests
-      # TODO: Build the React app
-
+  
+  
   # TODO: Define a job for building and testing the backend
   backend:
     runs-on: ubuntu-latest
@@ -57,7 +66,7 @@ jobs:
   # TODO: Define a job for building and pushing Docker images
   docker-fe:
     # Run this job only when 'frontend' & 'backend' stages are sucessfully completed
-    needs: [frontend] 
+    needs: [frontend-build] 
     runs-on: ubuntu-latest
     steps:
        -
