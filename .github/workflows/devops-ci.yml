@@ -1,0 +1,90 @@
+# TODO: Define the Workflow Name
+name: CI pipeline
+
+# TODO: Define triggers for the workflow
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  # TODO: Define a job for building and testing the frontend
+  frontend:
+    runs-on: ubuntu-latest
+    defaults: 
+      run: 
+        working-directory: frontend
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Node JS
+      uses: actions/setup-node@v4.1.0
+    - name: Install dependencies
+      run: npm install
+    - name: Run test
+      run: npm test
+    - name: Build React app
+      run: npm run build
+      # TODO: Checkout code
+      # TODO: Setup Node.js
+      # TODO: Install dependencies
+      # TODO: Run tests
+      # TODO: Build the React app
+
+  # TODO: Define a job for building and testing the backend
+  backend:
+    runs-on: ubuntu-latest
+    defaults: 
+      run: 
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5.3.0
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          pip install -r requirements.txt
+      # TODO: Checkout code
+      # TODO: Setup Python
+      # TODO: Install dependencies
+      # TODO: Run tests
+
+  # TODO: Define a job for building and pushing Docker images
+  docker:
+    # Run this job only when 'frontend' & 'backend' stages are sucessfully completed
+    needs: [frontend, backend] 
+    runs-on: ubuntu-latest
+    steps:
+       -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+       -
+          name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v3
+       -
+          name: Login to Docker Hub
+          uses: docker/login-action@v3
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+       -
+          name: Build and push frontend
+          uses: docker/build-push-action@v6
+          with:
+            context: "{{defaultContext}}:auth-service"
+            push: true
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/devopsfe:latest
+       - 
+          name: Build and push backend
+          uses: docker/build-push-action@v6
+          with:
+            context: "{{defaultContext}}:auth-service"
+            push: true
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/devopsbe:latest
+      # TODO: Checkout code
+      # TODO: Setup Docker
+      # TODO: Build frontend Docker image
+      # TODO: Build backend Docker image
+      # TODO: Push images to Docker Hub (if on main branch)
