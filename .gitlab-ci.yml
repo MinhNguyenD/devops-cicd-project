@@ -1,0 +1,38 @@
+# TODO: Define stages for your pipeline
+stages:
+
+# TODO: Define variables (if needed)
+variables:
+
+# TODO: Define a job for building the frontend
+frontend-job:
+  stage: # TODO: Specify stage
+  image: # TODO: Specify Node.js image
+  script:
+    # TODO: Install dependencies
+    # TODO: Build the React app
+
+# TODO: Define a job for building and testing the backend
+backend-job:
+  stage: # TODO: Specify stage
+  image: # TODO: Specify Python image
+  script:
+    # TODO: Install dependencies
+    # TODO: Run tests
+
+# TODO: Define a job for building Docker images
+docker-build:
+  stage: # TODO: Specify stage
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    # TODO: Build frontend Docker image
+    # TODO: Build backend Docker image
+    # TODO: Push images to Docker Hub (if on main branch)
+
+# OPTIONAL: Define a deployment job (if applicable)
+deploy:
+  stage: # TODO: Specify stage
+  script:
+    # TODO: Add deployment steps
