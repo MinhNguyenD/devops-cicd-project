@@ -13,6 +13,9 @@ services:
     # Map the host port to the container port
     ports: 
       - "3000:3000"
+    
+    networks:
+      - project-network
     # Specify dependencies (if applicable)
     # depends_on:
 
@@ -36,7 +39,9 @@ services:
     # Map the host port to the container port
     ports:
       - "5000:5000"
-    
+
+    networks:
+      - project-network
     # Additional options (uncomment and configure as needed):
     
     # Specify environment variables if needed
@@ -50,6 +55,9 @@ services:
 
 # Additional components (uncomment and configure as needed):
 # Define a custom network (if applicable)
-
+networks: 
+  project-network:
+    driver: bridge
+    
 # Define volumes (if applicable)
 # volumes:
