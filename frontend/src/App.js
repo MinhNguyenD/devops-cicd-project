@@ -99,7 +99,7 @@ function App() {
 
     try {
       // Request backend API with operands and operation type to get results
-      const api_response = await axios.post(`http://localhost:5000/api/${current_operation}`, {
+      const api_response = await axios.post(`http://192.168.0.27:5000/api/${current_operation}`, {
         number_1: first_operand,
         number_2: parseFloat(calculator_display)
       });
