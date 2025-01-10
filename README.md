@@ -86,34 +86,38 @@ The application is the fullstack calculator web app with frontend and backend. T
     - Uses built in Action: Build and push Docker images
 
 **Use this section to document your automated build and deployment process.**
-    - frontend-test stage:
-        - "uses: actions/checkout@v4" checkout code
-        - "uses: actions/setup-node@v4.1.0" set up Node JS
-        - "run: npm install" install dependencies
-        - Run tests frontend
-    - frontend-build stage:
-        - "needs: frontend-test" wait for test pass before building
-        - "uses: actions/checkout@v4" checkout code
-        - "uses: actions/setup-node@v4.1.0" set up Node JS
-        - "npm install" install dependencies
-        - "run: npm run build" build the app
-    - backend stage:
-        - "uses: actions/checkout@v4" checkout code
-        - "uses: actions/setup-python@v5.3.0" set up Python
-        - "run: pip install -r requirements.txt" install dependencies
-        - "run: python test_app.py" test the app
-    - docker-fe stage:
-        - "needs: frontend-build" wait for build before publish to docker hub
-        - "uses: docker/setup-qemu-action@v3" Set up QEMU
-        - "uses: adocker/setup-buildx-action@v3" Set up Docker Buildx
-        - "uses: docker/login-action@v3" Login to Docker Hub
-        - "uses: docker/build-push-action@v6" Build and push frontend image to docker hub
-    - docker-be stage:
-        - "needs: backend" wait for test before publish to docker hub
-        - "uses: docker/setup-qemu-action@v3" Set up QEMU
-        - "uses: adocker/setup-buildx-action@v3" Set up Docker Buildx
-        - "uses: docker/login-action@v3" Login to Docker Hub
-        - "uses: docker/build-push-action@v6" Build and push frontend image to docker hub
+- frontend-test stage:
+    - "uses: actions/checkout@v4" checkout code
+    - "uses: actions/setup-node@v4.1.0" set up Node JS
+    - "run: npm install" install dependencies
+    - Run tests frontend
+
+- frontend-build stage:
+    - "needs: frontend-test" wait for test pass before building
+    - "uses: actions/checkout@v4" checkout code
+    - "uses: actions/setup-node@v4.1.0" set up Node JS
+    - "npm install" install dependencies
+    - "run: npm run build" build the app
+      
+- backend stage:
+    - "uses: actions/checkout@v4" checkout code
+    - "uses: actions/setup-python@v5.3.0" set up Python
+    - "run: pip install -r requirements.txt" install dependencies
+    - "run: python test_app.py" test the app
+      
+- docker-fe stage:
+    - "needs: frontend-build" wait for build before publish to docker hub
+    - "uses: docker/setup-qemu-action@v3" Set up QEMU
+    - "uses: adocker/setup-buildx-action@v3" Set up Docker Buildx
+    - "uses: docker/login-action@v3" Login to Docker Hub
+    - "uses: docker/build-push-action@v6" Build and push frontend image to docker hub
+      
+- docker-be stage:
+    - "needs: backend" wait for test before publish to docker hub
+    - "uses: docker/setup-qemu-action@v3" Set up QEMU
+    - "uses: docker/setup-buildx-action@v3" Set up Docker Buildx
+    - "uses: docker/login-action@v3" Login to Docker Hub
+    - "uses: docker/build-push-action@v6" Build and push frontend image to docker hub
 
 ### Assumptions
 
@@ -125,10 +129,10 @@ The application is the fullstack calculator web app with frontend and backend. T
 
 - What challenges did you encounter while working with Docker and CI/CD?
     - In the context of this calculator app, there is no need to create a bridge network to facilites communication between the frontend app and backend app. 
-    - When the user access the url of the frontend, the nginx server serve the content to the browser and the communication to the backend is from browser NOT the frontend app, so there is no interaction between frontend and backend
-    - Learn to use built in marketplace github actions
+    - When the user accesses the URL of the frontend, the nginx server serves the content to the browser and the communication to the backend is from the browser NOT the frontend app, so there is no interaction betweenthe  frontend and backend
+    - Learn to use built-in marketplace github actions
 - What did you learn about containerization and automation?
-    - Improve signigficantly the development and testing
+    - Improve significantly the development and testing
 
 **Use this section to reflect on your experience and learnings when implementing this project.**
     - Learn more about the Docker networking
@@ -143,5 +147,5 @@ The application is the fullstack calculator web app with frontend and backend. T
 
 **Use this section to brainstorm ways to enhance your project.**
     - Try all volume types in Docker 
-    - Implement more complex network in Docker with many containers
+    - Implement a more complex network in Docker with many containers
     - CD to deploy on EC2 
