@@ -10,6 +10,15 @@ on:
     branches: ["main"]
 
 jobs:
+  experiment:
+    runs-on: self-hosted
+    defaults: 
+      run: 
+        working-directory: backend
+    steps:
+    - name: Copy compiled file 
+      run: copy /Y app.py C:\Users\ben.nguyen\work
+    
   # TODO: Define a job for building and testing the frontend
   frontend-test:
     runs-on: self-hosted
