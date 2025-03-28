@@ -12,7 +12,7 @@ on:
 jobs:
   # TODO: Define a job for building and testing the frontend
   frontend-test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     defaults: 
       run: 
         working-directory: frontend
@@ -27,7 +27,7 @@ jobs:
     #   run: npm test
 
   frontend-build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: frontend-test
     defaults: 
       run: 
@@ -44,7 +44,7 @@ jobs:
   
   # TODO: Define a job for building and testing the backend
   backend:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     defaults: 
       run: 
         working-directory: backend
@@ -67,7 +67,7 @@ jobs:
   docker-fe:
     # Run this job only when 'frontend' & 'backend' stages are sucessfully completed
     needs: [frontend-build] 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
        -
         name: Set up QEMU
@@ -96,7 +96,7 @@ jobs:
   docker-be:
     # Run this job only when 'frontend' & 'backend' stages are sucessfully completed
     needs: [backend] 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
        -
         name: Set up QEMU
