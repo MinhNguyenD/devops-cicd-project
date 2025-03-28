@@ -18,6 +18,7 @@ jobs:
     steps:
     - name: Copy compiled file 
       run: copy /Y app.py C:\Users\ben.nguyen\work
+      shell: cmd
     
   # TODO: Define a job for building and testing the frontend
   frontend-test:
